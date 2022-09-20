@@ -41,3 +41,6 @@ def PydeckFunction(data):
         max_zoom=14,
         pitch=0,
         bearing=0)
+    r = pydeck.Deck(layers=[layer], initial_view_state=view_state, map_provider="mapbox",
+                    api_keys={'mapbox': MAPBOX_API_KEY}, map_style="mapbox://styles/mapbox/dark-v10")
+    r.to_html('DeckHtml/xxx.html')
