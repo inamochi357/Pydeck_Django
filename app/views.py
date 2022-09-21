@@ -11,24 +11,26 @@ def index(request):
     if request.method == "POST":
         Csv = CsvFileForm(request.POST, request.FILES)
         if Csv.is_valid():
-            CsvFile = io.TextIOWrapper(request.FILES.get('Csv').file, encoding='shift-jis')
+            CsvFile = io.TextIOWrapper(request.FILES.get('Csv').file, encoding='utf-8_sig')
             Csv = csv.reader(CsvFile)
             data = [[], [], []]
             for sugakiya in Csv:
                 data[0].append(sugakiya[0])
                 data[1].append(sugakiya[1])
                 data[2].append(1)
+            PydeckFunction(data)
 
     return render(request, "index.html", {'CsvFileForm': CsvFileForm})
 
 
 def PydeckFunction(data):
+    print(data)
     layer = pydeck.Layer(
         "HeatmapLayer",
         data,
         opacity=0.3,
-        get_position=["lng", "lat"],
-        get_weight=["weight"],
+        get_position=[data[1], data[0]],
+        get_weight=data[2],
         aggregation=String('SUM'),
         colorRange=[[254, 229, 217], [252, 187, 161], [252, 146, 114], [251, 106, 74], [222, 45, 38], [165, 15, 21]],
         radiusPixels=40)
