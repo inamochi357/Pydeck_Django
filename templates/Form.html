@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="text-center">
+        <b>テスト</b>
+    </div>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ FileForm.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
