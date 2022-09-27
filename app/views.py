@@ -6,10 +6,17 @@ import pydeck
 import pandas as pd
 from pydeck.types import String
 from Pydeck_Django.settings_secret import MAPBOX_API_KEY
+from django.shortcuts import redirect
+
 
 # Create your views here.
+def IndexRedirectView(request):
+    return redirect("index")
+
+
 def index(request):
     return render(request, "index.html")
+
 
 def HeatMapRender(request):
     if request.method == "POST":
