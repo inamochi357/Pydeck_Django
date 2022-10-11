@@ -19,7 +19,8 @@ import app.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("HeatMap/", app.views.HeatMapRender, name="HeatMap"),
+    path("HeatMapLayer/", app.views.HeatMapRenderView, name="HeatMapLayer"),
     path("index/", app.views.index, name="index"),
-    path("", app.views.IndexRedirectView)
+    path("", app.views.IndexRedirectView),
+    path("GeojsonLayer", app.views.GeojsonRenderView, name="GeojsonLayer"),
 ]
