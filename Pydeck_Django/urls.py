@@ -18,8 +18,8 @@ from django.urls import path
 import app.views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("HeatMap/", app.views.HeatMapRender, name="HeatMap"),
-    path("index/", app.views.index, name="index"),
-    path("", app.views.IndexRedirectView)
+    path("admin/", admin.site.urls),    # 管理者画面
+    path("HeatMap/", app.views.HeatMapRender, name="HeatMap"),  # ヒートマップレイヤーが選択された際の表示
+    path("index/", app.views.index, name="index"),  # レイヤーの選択画面を表示
+    path("", app.views.IndexRedirectView) #indexにリダイレクトする
 ]
