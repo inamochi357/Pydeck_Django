@@ -7,6 +7,7 @@ import pandas as pd
 from pydeck.types import String
 from Pydeck_Django.settings_secret import MAPBOX_API_KEY
 from django.shortcuts import redirect
+import json
 
 
 # Create your views here.
@@ -58,25 +59,23 @@ def GeojsonRenderView(request):
     if request.method == "POST":
         GeojsonForm = GeojsonFileForm(request.POST, request.FILES)
         if GeojsonForm.is_valid():
-            Geojson = request.FILES.get('Geojson')
-
+            GeojsonData = request.FILES.get('Geojson')
+            JsonData = json.load(GeojsonData)
+            GeojsonFunction(JsonData)
             return render(request, 'DeckHtml/GeojsonLayer/xxx.html')
 
     else:
         return render(request, "Form.html", {'FileForm': GeojsonFileForm})
 
 
-def GeojsonFunction(Geojson):
+def GeojsonFunction(JsonData):
     Layer = pydeck.Layer(
         'GeoJsonLayer',
-        Geojson,
-        opacity=0.8,
+        JsonData,
         stroked=False,
         filled=True,
-        extruded=True,
-        wireframe=True,
-        get_elevation='properties.valuePerSqm / 20',
-        get_fill_color='[255, 255, properties.growth * 255]',
+        getPointRadius=40,
+        lineWidthMinPixels=4,
         get_line_color=[255, 255, 255],
         pickable=True
     )
